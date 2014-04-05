@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>The New York Times Crossword Search</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta property="og:description" name="description" content="Search clues and answers from 15 years worth of The New York Times crossword puzzles."/>
+	<meta property="og:title" content="The New York Times Crossword Search" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="http://donohoe.io/projects/crossword/" />
+	<meta property="og:image" content="http://donohoe.io/img/preview/nyt-xword.png" />
+	<link rel="stylesheet" href="style.css">
+	<link rel="shortcut icon" href="/img/favicon.png">
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.js"></script>
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:site" content="@donohoe">
+	<meta name="twitter:creator" content="@donohoe">
+	<meta name="twitter:url" content="http://donohoe.io/projects/crossword/">
+	<meta name="twitter:title" content="The New York Times Crossword Search">
+	<meta name="twitter:description" content="Search clues and answers from 15 years worth of The New York Times crossword puzzles.">
+	<meta name="twitter:image" content="http://donohoe.io/img/preview/nyt-xword.png">
+</head>
+<body>
+	<div id="suggest">
+		<img class="noSelect" src="img/nyt.png" alt="The New York Times." title="NYT masthead logo as it looked in the 1900's"/>
+		<h1 class="noSelect">Crossword Search</h1>
+		<!-- <img src="img/oops.png" alt="Oops" title="Too many people! Try again later." style="margin-left: 130px;"/> -->
+		<input type="text" size="36" placeholder="Search from Oct 1996 through 2011" value="" id="search" />
+		<div id="suggestions" style="display: none;">
+			<div class="diamond"><div class="texture"></div></div>
+			<div class="suggestionList" id="suggestionsList">&nbsp;</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="app.js"></script>
+	<script>
+		var _gaq = [['_setAccount', 'UA-3079798-12'], ['_trackPageview']];
+		(function(d, t) {
+			var g = d.createElement(t),
+				s = d.getElementsByTagName(t)[0];
+			g.async = true;
+			g.src = 'http://www.google-analytics.com/ga.js';
+			s.parentNode.insertBefore(g, s);
+		})(document, 'script');
+		if (top != self) {
+			top.onbeforeunload = function() {};
+			top.location.replace(self.location.href);
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+body {
+	font-family: georgia,"times new roman",times,serif;
+}
+
+#suggest {
+	position: absolute;
+	width: 560px;
+	top:   10%;
+	bottom: 0;
+	right:  0;
+	left:   0;
+	margin: auto;
+}
+
+#suggest > img {
+	margin-left: 100px;
+}
+
+h1 {
+	font-size: 18px;
+	line-height: 30px;
+	text-align: center;
+	padding: 0;
+	margin: 0;
+	text-transform: uppercase;
+	letter-spacing: 8px;
+}
+
+.noSelect {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+
+#result {
+	height:20px;
+	font-size:16px;
+	font-family:Arial, Helvetica, sans-serif;
+	color:#333;
+	padding:5px;
+	margin-bottom:10px;
+	background-color:#FFFF99;
+}
+
+#search {
+	width: 352px;
+	padding: 3px;
+	margin-left: 100px;
+	border: 1px #CCC solid;
+	font-size:17px;
+}
+
+#suggestions {
+	width: 560px;
+	position: absolute;
+	left: 0px;
+	top: 115px;
+	margin: 0;
+	padding: 0;
+	background-color: #000;
+	border-top: 4px solid #fff;
+	color: #fff;
+}
+
+.diamond {
+	width: 14px;
+	height: 14px;
+	position: absolute;
+	border: 0;
+	z-index: 99;
+	-ms-transform: rotate(136deg);
+	-moz-transform: rotate(136deg);
+	-webkit-transform: rotate(136deg);
+	transform: rotate(136deg);
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+	background: black;
+	left: 130px;
+	top: -7px;
+}
+
+.diamond .texture {
+	top: -22px;
+	left: -19px; 
+}
+
+.diamond .texture {
+	background-color: black;
+}
+
+.suggestionList {
+	margin:  0px;
+	padding: 0px;
+	z-index: 100;
+	position: relative;
+}
+
+.suggestionList ul {
+	font-size: 14px;
+}
+
+.suggestionList ul li {
+	list-style:none;
+	margin:  0px;
+	padding: 12px;
+	border-bottom:1px dotted #666;
+	cursor: pointer;
+	position: relative;
+}
+
+.suggestionList ul li:hover {
+	background-color: #FC3;
+	color: #000;
+}
+
+.suggestionList ul li span {
+	width:   370px;
+	display: block;
+}
+
+.suggestionList ul li small:last-child {
+	visibility: hidden;
+	position: absolute;
+	right: 140px;
+}
+
+.suggestionList ul li:hover small:last-child {
+	visibility: visible;
+}
+
+.suggestionList ul li small {
+	top:    0;
+	bottom: 0;
+	margin: auto;
+	height: 16px;
+	position: absolute;
+	right:  10px;
+}
+
+ul {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color:   #FFF;
+	padding: 0;
+	margin:  0;
+}
+
+.load {
+	background-image:    url(img/loader.gif);
+	background-position: 99% center;
+	background-repeat:   no-repeat;
+}
