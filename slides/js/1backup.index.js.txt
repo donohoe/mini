@@ -1,0 +1,370 @@
+var App = {
+    init: function(){
+        var instance = this;
+        this.config();
+        this.loading(function(data){
+            instance.build(data);
+            instance.run();
+        });
+    },
+
+    config: function() {
+
+        var container = $('container');
+		var instance  = this;
+        this.debug    = 'This lives';
+        this.empty    = 'img/px.gif';
+
+        this.Slides         = {};
+        this.Slides.Index   = [];
+        this.Slides.Current = 0;
+
+        var isIphone  = (/iphone/gi).test(navigator.appVersion),
+            isIpad    = (/ipad/gi).test(navigator.appVersion),
+            isAndroid = (/android/gi).test(navigator.appVersion);
+
+        if (isIphone) {
+            setTimeout(function(){ window.scrollTo(0, 1); }, 500);
+        }
+
+        this.isTouch  = isIphone || isIpad || isAndroid;
+        this.isWebkit = RegExp(" AppleWebKit/").test(navigator.userAgent);
+        this.resize();
+
+        if (this.isTouch) {
+			$('controls').style.display = 'none'; // Remove
+
+            this.swipeStarted = false;
+            this.swipeLength  = 120;
+            this.swipeStartX  = 0;
+            this.swipeTarget  = '';
+
+			document.title = 'Pictures';
+            document.addEventListener("touchmove",  function(e) {e.preventDefault(); }, false);
+            document.addEventListener('touchstart', this.swipeStart, false);
+            document.addEventListener('touchmove',  this.swipeMove,  false);
+			window.addEventListener('onorientationchange' in window ? 'orientationchange' : 'resize', App.resize, false);
+        } else {
+        //  Add browser controls, buttons, keypress
+            window.addEventListener('keydown',  this.keyCheck, false);
+			window.addEventListener('resize', this.resize,   false);
+            $('controls').addEventListener('click', this.clickButton, false);
+            container.addEventListener('click', this.clickButton, false);
+        }
+
+		container.addEventListener("transitionend", function(event) {
+		//	Not supported in Mozilla yet but maybe one day...
+			instance.manager(instance.Slides.Current);
+		}, true);
+
+        container.addEventListener('webkitAnimationEnd', function(event) {
+            instance.manager(instance.Slides.Current);
+        }, false);
+
+    },
+
+	resize: function() {
+		console.log('orientationChanged...');
+		var instance    = App;
+		var container   = $('container');
+		var header      = $('header');
+
+        instance.Width  = window.innerWidth;
+        instance.Height = window.innerHeight;
+        header.style.width     = instance.Width  + 'px';
+        container.style.width  = instance.Width  + 'px';
+        container.style.height = instance.Height + 'px';
+	},
+
+    run: function() {
+        //this.openFromRight(); // Open first page
+    },
+
+    loading: function(cb) {
+    //  console.log('loadSlides');
+        var cv = document.getElementById('canvas');
+        var cx = cv.getContext('2d'), i = new Image(), s = '';
+        i.onload = function(){
+            var w = i.width;
+            var h = i.height;
+            cv.setAttribute('width',  w);
+            cv.setAttribute('height', h);
+            cx.drawImage(i, 0, 0);
+            var b = cx.getImageData(0, 0, w, h).data;
+            var l = b.length;
+            for(var c=0; c<l; c+=4) { if (b[c]>0) { s += String.fromCharCode(b[c]); } }
+            if (cb) { cb(s); }
+        };
+        i.src = 'service/photos.js.png';
+    },
+
+    build: function(data) {
+        var slides = eval(data);
+    //  console.log(this.debug, slides);
+
+        var len   = slides.length;
+        var html  = '';
+        var count = 0;
+
+        for (var i=0; i<len; i++) {
+
+            var slide  = slides[i];
+            var media  = slide.media[0];
+            var photos = media['media-metadata'];
+            var pLen   = photos.length;
+
+            for (var p=0; p<pLen; p++) {
+
+                if (photos[p].format=='Jumbo' && photos[p].width>500) {
+
+                    var ns = {}; // New Slide
+                    var id = this.safeTxt(photos[p].url);
+
+                    if (this.Slides[id]==undefined) {
+
+                        ns.headline  = slide.headline;
+                        ns.byline    = slide.byline;
+                        ns.created   = slide.created;
+                        ns.summary   = slide.summary;
+                        ns.url       = slide.url;
+                        ns.related   = slide.related;
+                        ns.section   = slide.section;
+
+                        ns.caption   = media.caption;
+                        ns.copyright = media.copyright;
+                        ns.src       = photos[p].url;
+                        ns.height    = photos[p].height;
+                        ns.width     = photos[p].width;
+
+                        ns.domID     = id;
+                        ns.loaded    = false;
+
+                        var src = this.empty;
+                        if (count<5) {
+                            ns.loaded = true;
+                            src = ns.src;
+                        }
+
+                        this.Slides[id] = ns;
+                        this.Slides.Index.push(id);
+
+//                      html += "<div class='page' style='position: absolute; left: " + ((count==0) ? 0 : this.Width) + "px; width: " + this.Width + "px'>";
+                        html += "<div class='page' style='position: absolute; left: " + ((count==0) ? "0px" : "100%") + "; width: 100%'>";
+                        html += "<img src='" + src + "' style='" + ((ns.height>ns.width) ? "height" : "width") + ":100%'/>";
+                        html += "</div>";
+/*
+html += "<div class='page' style='position: absolute; left: 100%; width: " + this.Width + "px'>";
+html += "<img src='" + src + "'/>";
+html += "</div>";
+*/
+                        count++;
+                    }
+                }
+            }
+        }
+        $('container').innerHTML = html;
+    },
+
+//  NEXT PAGE
+
+    openFromRight: function(elm) {  // Get the next page
+        var elm = elm || $$('page')[0];
+        elm.setAttribute("class", "page inFromRight current");
+    },
+
+    closeFromRight: function(elm){ // Close the old page
+        elm.setAttribute("class", "page outFromRight");
+    },
+
+//  PREVIOUS PAGE
+
+    openFromLeft: function(elm){
+    //  var elm = elm || $('container').select('.page')[0];
+        elm.setAttribute("class", "page inFromLeft current");
+    },
+
+    closeFromLeft: function(elm){ // Close the old page
+        console.log('Prev Page', elm);
+        elm.setAttribute("class", "page outFromLeft");
+    },
+
+//canvas.setAttribute('style', 'left: ' + posX + 'px;');
+
+    moveSlide: function(dir) {
+    //  Move slide
+
+        var instance  = App;
+        var dir       = dir || 'next';
+        var cs        = $('container');
+        var pages     = $$('page');
+    
+        var viewSlide = 0;
+        var numSlides = instance.Slides.Index.length;
+        var currSlide = instance.Slides.Current || 0;
+
+        if (dir=='next') {
+            var viewSlide = (currSlide+1>=numSlides) ? currSlide : currSlide + 1;
+            if (currSlide==viewSlide) { return; }
+            pages[viewSlide].setAttribute('style', 'width: 100%; left: 0%;');
+            pages[currSlide].setAttribute('style', 'width: 100%; left: -100%;');
+
+        } else {
+            var viewSlide = (currSlide-1 < 0) ? currSlide : currSlide-1;
+            if (currSlide==viewSlide) { return; }
+            pages[viewSlide].setAttribute('style', 'width: 100%; left: 0%;');
+            pages[currSlide].setAttribute('style', 'width: 100%; left: 100%;');
+        }
+
+		setTimeout(function(){ instance.manager(viewSlide); }, 505); // and wait for animation to end
+        instance.Slides.Current = viewSlide;
+    },
+
+    moveSlideWORKS: function(dir) {
+    //  Move slide
+
+        var instance  = App;
+        var dir       = dir || 'next';
+        var cs        = $('container');
+        var pages     = $$('page');
+        
+        var viewSlide = 0;
+        var numSlides = instance.Slides.Index.length;
+        var currSlide = instance.Slides.Current || 0;
+
+        if (dir=='next') {
+            var viewSlide = (currSlide+1>=numSlides) ? currSlide : currSlide + 1;
+            if (currSlide==viewSlide) { return; }
+            this.openFromRight(pages[viewSlide]);
+            this.closeFromRight(pages[currSlide]);
+        } else {
+            var viewSlide = (currSlide-1 < 0) ? currSlide : currSlide-1;
+            if (currSlide==viewSlide) { return; }
+            this.openFromLeft(pages[viewSlide]);
+            this.closeFromLeft(pages[currSlide]);
+        }
+
+        instance.Slides.Current = viewSlide;
+    },
+
+    //  Manage images in DOM
+    /*
+        viewSlide is the current slide (x)
+        We will keep the next two, x+1 and x+2
+        and keep the previous two, x-1, x-2
+        as long as no value is <0 or > numSlides
+        and drop everything else
+    */
+    manager: function(index) {
+        var numSlides = this.Slides.Index.length;
+        var instance  = this; // nesesary??? test
+        if (numSlides > 4) {
+
+            var pages = $$('page');
+            var start = ((index-2) < 0)           ? 0             : index-2;
+            var end   = ((index+2) > numSlides-1) ? (numSlides-1) : index+2;
+
+            for (var i=0; i<numSlides; i++) {
+                var img = pages[i].getElementsByTagName('img')[0];
+                var cmp = img.src.indexOf(instance.empty);
+
+                if (i>=start && i <= end) {
+                    if (cmp>0) {
+                        img.src  = instance.Slides[instance.Slides.Index[i]].src;
+                    }
+                } else {
+                    if (cmp<0) {
+                        img.src  = instance.empty;
+                    }
+                }
+            }
+        }
+    },
+
+//  Navigation
+
+    clickButton: function(e) {
+        var elm = e.target;
+        if (elm.nodeName=='SPAN') {
+            if (elm.id=="next" || elm.id=="prev") {
+                App.moveSlide(elm.id);
+            }
+        }
+    },
+
+    keyCheck: function(e) {
+        var k = e.keyCode;
+        var p = false;
+        switch(k) {
+            case 37: // Left
+                App.moveSlide('prev');
+                p = true;
+                break;
+            case 32: // Space
+            case 39: // Right
+                App.moveSlide('next');
+                p = true;
+                break;
+        }
+        if (p) e.preventDefault();
+    },
+
+    swipeStart: function(e) {
+        var instance = App;
+        instance.swipeStartX  = e.touches[0].pageX;
+        instance.swipeStarted = true;
+        instance.swipeTarget  = e.touches[0].target;
+    },
+
+    swipeMove: function(e) {
+        var instance = App;
+        var diffX    = (e.touches[0].pageX - instance.swipeStartX);
+        if (instance.swipeStarted && (diffX > instance.swipeLength || diffX < -instance.swipeLength)) {
+            instance.swipeStarted = false;
+            if (diffX > instance.swipeLength) {
+                instance.moveSlide('prev');
+            } else {
+                instance.moveSlide('next');
+            }
+        }
+    },
+
+//  HELPERS
+
+    safeTxt: function(url) {
+    //  For use as safe page ID in DOM
+        if (url) {
+            var tmp = url.substr(0, (url.indexOf('.nytimes.com/')+13));
+            url = url.replace(tmp, '');
+            url = url.replace('.html', '');
+            url = url.replace('.jpg', '');
+            url = url.replace('.png', '');
+            url = url.toLowerCase().replace(/\//g, '_');
+            url = url.split("?")[0];
+        }
+        return url;
+    },
+
+/*  Get 5 articles, the first 3 of a section, and the last 2.
+*/
+    getRange: function(items) {
+        if (items.length < 5) { return items; };
+
+        var len   = items.length;
+        var start = items.slice(0, 3);       // First 3 items
+        var last  = items.slice(len-2, len); // Last  2 items
+
+        return start.concat(last);
+    },
+/*  Get Range of Articles within a Section
+    For a given Article get the 2 Previous, Article, and the 2 Next
+*/
+    getRangeOLD: function(items, start) {
+      if (items.length < 5) { return items; };
+      start = ((start-2)+items.length) % items.length;
+      if (start < items.length-5) { return items.slice(start,start+5); };
+      return items.slice(start).concat(items.slice(0,5-(items.length-start)));
+    }
+};
+
+
+App.init();

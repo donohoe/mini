@@ -1,0 +1,17 @@
+{
+  "name": "Pictures",
+  "description": "Today's stories in pictures from The New York Times.",
+  "version": "0.0.0.4",
+  "app": {
+    "urls": [
+      "http://donohoe.io/projects/slides/"
+    ],
+    "launch": {
+      "web_url": "http://donohoe.io/projects/slides/"
+    }
+  },
+  "icons": {
+  "128": "128.png",
+  "96": "96.png"
+  }
+}
