@@ -1,0 +1,104 @@
+/*
+The basic CSS with the Etsy look-and-feel
+v0.1
+http://ifelse.org/projects/etsy/favorites/index.html
+*/
+* {
+    margin:0;
+    padding:0;
+}
+
+body {
+    font-family:"Arial","Helvetica", sans-serif;
+    font-size:12px;
+    text-align:left;
+}
+
+a:link, a:visited {
+    color:#0192B5;
+    text-decoration:none;
+}
+
+#etsyStar ul {
+    list-style:none outside none;
+}
+
+#etsyStar li {
+    border:1px solid #EAEAEA;
+    display:inline;
+    float:left;
+    margin:7px 0 0 7px;
+    padding:6px;
+}
+
+#etsyStar a.thumbnail {
+    display:block;
+}
+
+#etsyStar img {
+    border:medium none;
+    display:block;
+}
+
+#etsyStar h3 {
+    font-size:13px;
+    height:15px;
+    line-height:15px;
+    margin-top:5px;
+    overflow:hidden;
+}
+
+#etsyStar h3 a {
+    color:#666666;
+}
+
+#etsyStar .seller a {
+    color: #B2B2B2;
+}
+
+#etsyStar .price {
+    color: #78C042;
+}
+
+/* With variations in image size, from normal */
+
+#etsyStar.thumbnail h3 {
+	width: 75px;
+	font-size:10px;
+}
+
+#etsyStar.thumbnail .price {
+	height:15px;
+	overflow:hidden;
+	width:75px;
+	font-size:10px;
+}
+
+#etsyStar.thumbnail .seller {
+	display:none;
+}
+
+
+#etsyStar.wide h3, #etsyStar.none h3 {
+	width: 155px;
+}
+
+#etsyStar.none h3 {
+	margin-top:0;
+}
+
+#etsyStar.large h3 {
+	width: 430px;
+}
+
+#etsyStar.none a.thumbnail {
+    display:none;
+}
+
+/*
+ _/_/_/_/_/  _/                                _/        _/            _/            _/                  _/      _/                        _/_/_/                      _/                            _/_/_/                                          _/                                                                  _/
+    _/      _/_/_/      _/_/          _/_/_/  _/_/_/          _/_/_/  _/  _/            _/_/_/        _/_/_/_/  _/_/_/      _/_/        _/        _/  _/_/  _/    _/      _/_/_/      _/_/_/      _/          _/_/_/  _/_/_/  _/_/      _/_/              _/_/_/        _/_/_/      _/_/_/  _/_/      _/_/_/  _/_/_/    _/
+   _/      _/    _/  _/_/_/_/      _/        _/    _/  _/  _/        _/_/          _/  _/    _/        _/      _/    _/  _/_/_/_/      _/        _/_/      _/    _/  _/  _/    _/  _/    _/      _/  _/_/  _/    _/  _/    _/    _/  _/_/_/_/      _/  _/_/          _/    _/      _/    _/    _/  _/    _/  _/    _/  _/
+  _/      _/    _/  _/            _/        _/    _/  _/  _/        _/  _/        _/  _/    _/        _/      _/    _/  _/            _/        _/        _/    _/  _/  _/    _/  _/    _/      _/    _/  _/    _/  _/    _/    _/  _/            _/      _/_/      _/    _/      _/    _/    _/  _/    _/  _/    _/
+ _/      _/    _/    _/_/_/        _/_/_/  _/    _/  _/    _/_/_/  _/    _/      _/  _/    _/          _/_/  _/    _/    _/_/_/        _/_/_/  _/          _/_/_/  _/  _/    _/    _/_/_/        _/_/_/    _/_/_/  _/    _/    _/    _/_/_/      _/  _/_/_/          _/_/_/      _/    _/    _/    _/_/_/  _/    _/  _/                                                                                                                                                                _/                      _/                                                                                                                                                                                                                                                                                                 _/_/                    _/_/
+*/
