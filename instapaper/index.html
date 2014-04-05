@@ -1,0 +1,401 @@
+<html>
+<head>
+  <title>Instapaper &#9829; NYT</title>
+  <link rel="icon" type="image/png" href="http://ifelse.org/sandbox/project/timesnow/images/nyt_invert.gif"/>
+  <script type="text/javascript" src="http://graphics8.nytimes.com/js/app/lib/prototype/1.6.0.2/prototype.js"></script>
+  <script type="text/javascript" src="http://graphics8.nytimes.com/js/app/lib/scriptaculous/1.8.1/effects.js"></script>
+  <meta name="description" content="Quickly and easily send articles from The New York Times to Instapaper, with love." />
+  <meta name="viewport" content="width=660"/>
+</head>
+<body>
+  <style>
+  * {
+    margin:0;
+    padding:0;
+  }
+
+  body  {
+    color:#333;
+    font-family:Georgia,"Times New Roman",Times,serif;
+    font-size:13px;
+    line-height:21px;
+  }
+
+  .box {
+    float:left;
+    margin:5px;
+    padding:5px 5px 5px 12px;
+    width:700px;
+  }
+
+  #header {
+    overflow: hidden;
+    text-align: center;
+  }
+
+  #header img {
+    margin-top:35px;
+  }
+
+  iframe {
+    border:10px solid #ccc;
+    height:0;
+    width:0;
+    margin-right:5px;
+  }
+
+  #remoteIframes {
+    clear:both;
+    float:left;
+    padding-left:20px;
+    width:600px;
+  }
+
+  h1 {
+    float:left;
+    text-indent:-15000px;
+    font-size: 2em;
+    font-weight:bold;
+    line-height: 1.2em;
+  }
+
+  h2 {
+    clear:both;
+    font-family:Helvetica;
+    font-size:1.2em;
+    line-height:1.5em;
+    padding:20px 0 0 2px;
+  }
+
+  #alldone h2 {
+    font-size:1.3em;
+    padding-bottom:16px;
+    padding-left:18px;
+  }
+
+  h3 {
+    font-size:1em;
+    line-height:3em;
+    padding:3px 0 0 2px;
+  }
+
+  /* form */
+
+  #doSections {
+    margin-top: 22px;
+  }
+
+  p {
+    clear: both;
+    font-size:1em;
+    line-height:1.5em;
+    padding: 5px 0 3px 3px;
+  }
+
+  .shortGroup {
+    background-color:#CCCCCC;
+    height:49px;
+    padding:5px 0 0 3px;
+    width:622px;
+  }
+
+  .input-name {
+    background:url("img/input-name.png") no-repeat scroll left top transparent;
+    display:block;
+    float:left;
+    height:35px;
+    padding:15px 0 0 85px;
+    width:225px;
+  }
+
+  .input-pwd {
+    background:url("img/input-pwd.png") no-repeat scroll left top transparent;
+    float:left;
+    height:35px;
+    padding:15px 0 0 85px;
+    width:220px;
+  }
+
+  div > input {
+    width:200px;
+  }
+
+  input#nameinput, input#emailinput {
+    border:medium none;
+    color:#666666;
+    font-family: Georgia,"Times New Roman",Times,serif;
+    font-size:14px;
+    height:18px;
+    padding-top:3px;
+  }
+
+  .input-name input, .input-email input {
+    width:200px;
+  }
+
+  #busy {
+    float: left;
+    padding: 17px 0 0 14px;
+  }
+
+  /* section list stuff */
+
+  ul {
+    clear:both;
+    font-size:0.9em;
+    padding-left:2px;
+    list-style:none;
+  }
+
+  ul.horizontal { 
+    list-style:none outside none;
+  }
+
+  .narrow li {
+    width: 120px;
+  }
+
+  li {
+    background: none repeat scroll 0 0 transparent;
+    cursor:pointer;
+    padding: 2px;
+    clear: both;
+  }
+
+  .horizontal li {
+    float:left;
+    clear: none;
+  }
+
+  li input {
+    float:left;
+    height:16px;
+  }
+
+  li label {
+    float:     left;
+    display:   block;
+    font-family: arial,helvetica,sans-serif;
+    font-size:1.1em;
+    line-height: 1.2em;
+    padding-left:4px;
+  }
+
+  /* Button */
+
+  .btn {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    float: left;
+    clear: both;
+    background: url(img/btn_left.png) no-repeat;
+    padding: 0 0 0 10px;
+    margin:  5px 0 0 4px;
+    cursor:  pointer;
+  }
+
+  .btn a {
+    float: left;
+    height: 40px;
+    background: url(img/btn_stretch.png) repeat-x left top;
+    line-height: 40px;
+    padding: 0 10px;
+    color: #fff;
+    font-size: 1em;
+    text-decoration: none;
+  }
+
+  .btn span {
+    background: url(img/btn_right.png) no-repeat;
+    float: left;
+    width: 10px;
+    height: 40px;
+  }
+
+  .dark { background-color:#000000; }
+  .clear { clear: both; }
+  </style>
+  <div class="box">
+
+    <h1>Instapaper &#9829; The New York Times</h1>
+    <img src="img/iheartt.png"/>
+
+    <h2>Step #1</h2>
+    <p>Enter your Instapaper Email address and Password</p>
+    <div class='shortGroup'>
+      <div class="input-name"><input type="text" style="border: 0pt none;" size="32" name="name" id="instUser"></div>
+      <div class="input-pwd"><input type="password" style="border: 0pt none;" size="32" name="password" id="instPass"></div>
+    </div>
+
+    <h2>Step #2</h2>
+    <p>Choose the Sections that interest you:</p>
+
+    <ul id="sectionList" class="horizontal narrow">
+      <li><input type="checkbox" value="" checked="yes"><label>Homepage</label></li>
+      <li><input type="checkbox" value="arts"><label>Arts</label></li>
+      <li><input type="checkbox" value="automobiles"><label>Autos</label></li>
+      <li><input type="checkbox" value="books"><label>Books</label></li>
+      <li><input type="checkbox" value="business"><label>Business</label></li>
+      <li><input type="checkbox" value="dining"><label>Dining &amp; Wine</label></li>
+      <li><input type="checkbox" value="education"><label>Education</label></li>
+      <li><input type="checkbox" value="health"><label>Health</label></li>
+      <li><input type="checkbox" value="jobs"><label>Jobs</label></li>
+      <li><input type="checkbox" value="movies"><label>Movies</label></li>
+      <li><input type="checkbox" value="nyregion"><label>N.Y./Region</label></li>
+      <li><input type="checkbox" value="opinion"><label>Opinion</label></li>
+      <li><input type="checkbox" value="realestate"><label>Real Estate</label></li>
+      <li><input type="checkbox" value="science"><label>Science</label></li>
+      <li><input type="checkbox" value="sports"><label>Sports</label></li>
+      <li><input type="checkbox" value="style"><label>Style</label></li>
+      <li><input type="checkbox" value="technology "><label>Technology</label></li>
+      <li><input type="checkbox" value="theater"><label>Theater</label></li>
+      <li><input type="checkbox" value="travel"><label>Travel</label></li>
+      <li><input type="checkbox" value="national"><label>US</label></li>
+      <li><input type="checkbox" value="world"><label>World</label></li>
+      <li><input type="checkbox" value="politics"><label>Politics</label></li>
+      <li><input type="checkbox" value="arts/music"><label>Music</label></li>
+      <li><input type="checkbox" value="arts/television"><label>Television</label></li>
+      <li><input type="checkbox" value="fashion"><label>Fashion</label></li>
+      <li><input type="checkbox" value="garden"><label>Home &amp; Garden</label></li>
+      <li><input type="checkbox" value="fashion/weddings/"><label>Weddings</label></li>
+      <li><input type="checkbox" value="education"><label>Education</label></li>
+      <li><input type="checkbox" value="magazine"><label>Magazine</label></li>
+      <li><input type="checkbox" value="t-magazine"><label>T-Magazine</label></li>
+      <li><input type="checkbox" value="weekinreview"><label>Week In Review</label></li>
+    </ul>
+
+    <h2>Step #3</h2>
+    <p>You might want to limit the number from each to avoid flooding your account (or not...)</p>
+    <ul id="sectionLimit" class="horizontal narrow">
+      <li><input type="radio" name="sec" value="3" checked="yes"><label>Last 3</label></li>
+      <li><input type="radio" name="sec" value="5"><label>Last 5</label></li>
+      <li><input type="radio" name="sec" value="0"><label>All</label></li>
+    </ul><span id="limit" style='display:none;'>3</span>
+
+    <div id="btnGo" class="btn dark"><a>Go Fourth &amp; Do It!</a><span></span></div><img id="busy" src="img/busy.gif" style="display: none;"/><div class="clear"></div>
+  </div>
+  <div id="remoteIframes"></div>
+  <div id="alldone" style="display:none;"><h2>All Done!</h2></div>
+  <script>
+  /*
+  If you don't include this: 09 F9 11 02 9D 74 E3 5B D8 41 56 C5 63 56 88 C0
+  then the world will end in a fiery blaze
+  */
+  function jsonFeedCallback(data) {
+    var remoteIframes = $('remoteIframes');
+    var user  = $('instUser').value;
+    var pass  = $('instPass').value;
+    var limit = $('limit').innerHTML;
+
+    if (user=='') {
+    /*
+        ╭━━━━━━━━╮┏━━━━┓
+        ┃┊┊┊┊┊┊┊┊┃╰━┓┏━╯
+        ┃┊┊┊┊┊┊┊┊┃◯◯┃┃◯◯
+        ┃┊┊┊┊╰━╯┊╰━━╯┃◯◯
+        ┗━━━━━━━╯┊┊┊┊┃◯◯
+        ◯◯╰━━━━━━━━━━╯◯◯
+    */
+      var elm = $$('div.input-name')[0];
+      Effect.Shake(elm, { distance: 8 });
+      return;
+    }
+
+    if (limit>0) {
+      data.items.length = limit;
+    }
+
+    data.items.each(function(item) {
+      var instaAdd  = "http://www.instapaper.com/api/add";
+      var remoteAdd = remoteIframes.appendChild(new Element('iframe', {
+        'src': instaAdd + "?url=" + encodeURIComponent(item.link) + "&title=" + encodeURIComponent(item.title) + "&username=" + user + "&password=" + pass
+      }));
+    });
+  
+    if (IHT.feedCount==IHT.feedLast) {
+      setTimeout(function () {
+        $('busy').fade();
+        $('alldone').appear();
+	    setTimeout(function () {
+	      $('alldone').fade();
+	    }, 3000);
+      }, 1000);
+    }
+
+    IHT.feedCount++;
+  }
+
+  var IHT = {
+    init: function() {
+      this.headEl = $(document.getElementsByTagName('head')[0]);
+      $('instUser').value = this.isThatYou();
+
+  //  Events
+      Event.observe('btnGo', 'click', this.run.bind(this));
+      $('sectionLimit').select('li').each(function(li){
+        Event.observe(li, 'click', function(){
+          $('limit').innerHTML = li.select('input')[0].value;
+        });
+      });
+    },
+
+    run: function() {
+      var sectionList = this.getSectionList();
+      var instance    = this;
+
+      this.feedLast   = sectionList.length;
+      this.feedCount  = 1;
+      this.ohInCaseIForget();
+
+      $('remoteIframes').update('');
+      sectionList.each(function(url){
+        $('busy').show();
+        instance.loadJSON(url);
+      });
+    },
+
+    getSectionList: function() {
+      var section = [];
+      $('sectionList').select('input[type=checkbox]').each(function(box){
+        if (box.checked) {
+          section.push("http://json8.nytimes.com/pages/" + box.value + "/index.jsonp");
+        }
+      });
+      return section;
+    },
+
+    loadJSON: function (url) {
+      this.timeoutId = setTimeout(function () {
+        this.scriptEl.remove();
+      }.bind(this), 2000);
+      this.scriptEl = this.headEl.appendChild(new Element('script', {
+        'id': 'jsonp',
+        'src': url
+      }));
+    },
+
+    isThatYou: function() {
+      var you = document.cookie;
+      if (you) {
+        var results = document.cookie.match( '(^|;) ?instUser=([^;]*)(;|$)' );
+        if (results) {
+          $('instPass').focus();
+          return (unescape(results[2]));
+        }
+      }
+      $('instUser').focus();
+      return '';
+    },
+
+    ohInCaseIForget: function() {
+      var you = $('instUser').value;
+      if (you) {
+        var goesBad = new Date();
+        goesBad.setTime(goesBad.getTime() + 1209600); // two weeks
+        document.cookie = "instUser=" + escape(you) + "; expires=" + goesBad.toGMTString();
+      }
+    }
+  };
+  IHT.init();
+  </script>
+</body>

@@ -1,0 +1,323 @@
+
+* {
+    margin:0;
+    padding:0;
+}
+
+body  {
+    color:#333333;
+    font-family:Georgia,"Times New Roman",Times,serif;
+    font-size:13px;
+    line-height:21px;
+}
+
+#content {
+    height:480px;
+    overflow:hidden;
+    position:absolute;
+    width: 2500px;
+}
+
+.box  {
+    background-color:#CCCCCC;
+    border:1px solid #CCCCCC;
+    float:left;
+    height:405px;
+    margin:5px;
+    padding:5px 5px 5px 12px;
+    width:335px;
+}
+
+.shortGroup {
+	clear:both;
+	display:block;
+	height:100px;
+}
+
+/* Notify */
+
+.notify {
+	bottom: 15px;
+	color:#FFFFFF;
+	height:22px;
+	margin-left:-13px;
+	padding-bottom:5px;
+	padding-right:5px;
+	padding-top:5px;
+	position:absolute;
+	text-align:center;
+	width:349px;
+}
+
+.good {
+    background-color: green;
+}
+
+.bad {
+    background-color: #FF0000;
+}
+/*
+.notify span {
+    display: none;
+}
+
+.good span {
+    display: block;
+    background-color:green;
+}
+
+.bad span {
+    display: block;
+    background-color: red;
+}
+*/
+
+/* Header */
+
+#header {
+    overflow: hidden;
+    text-align: center;
+}
+
+#header img {
+	margin-top:35px;
+}
+
+#bookmarklet {
+	font-family:Georgia;
+	margin-left:36%;
+	margin-top:5%;
+	text-align:center;
+}
+
+#bookmarklet .btn {
+	margin-left: 15px;
+}
+
+#bookmarklet .input-pwd {
+	margin-left:10px;
+	margin-top:4px;
+	padding-left:35px;
+}
+
+#header span {
+	display:block;
+	font-family:Georgia;
+	font-size:0.5em;
+	height:417px;
+	left:6px;
+	line-height:1.1em;
+	opacity:0.2;
+	overflow:hidden;
+	position:absolute;
+	text-align:justify;
+	top:4px;
+	width:351px;
+}   
+
+h1 {
+    text-indent:-15000px;
+    font-size: 2em;
+    font-weight:bold;
+    line-height: 1.2em;
+}
+
+h2 {
+    line-height:1.5em;
+    padding:3px 0 0 2px;
+}
+
+h3 {
+	font-size:1em;
+	line-height:3em;
+	padding:3px 0 0 2px;
+}
+
+/* form */
+
+
+
+.credentials {
+    width:315px;
+}
+
+
+p {
+    clear: both;
+    font-size:1em;
+    line-height:1.5em;
+    padding: 5px 15px 8px 3px;
+}
+
+.input-name {
+    background:url("../img/input-name.png") no-repeat scroll left top transparent;
+    height:  35px;
+    padding: 15px 0 0 85px;
+    width:   225px;
+}
+
+.input-email {
+    background:url("../img/input-email.png") no-repeat scroll left top transparent;
+    height:  35px;
+    padding: 15px 0 0 85px;
+    width:   305px;
+}
+
+.input-pwd {
+    background:url("../img/input-pwd.png") no-repeat scroll left top transparent;
+    height:  35px;
+    padding: 15px 0 0 85px;
+    width:   305px;
+}
+
+div > input {
+    width:200px;
+}
+
+input#nameinput, input#emailinput {
+    border:medium none;
+    color:#666666;
+    font-family: Georgia,"Times New Roman",Times,serif;
+    font-size:14px;
+    height:18px;
+    padding-top:3px;
+}
+
+.input-name input, .input-email input {
+    width:200px;
+}
+
+/* timespeople */
+
+#timespeople {
+
+}
+
+
+#timespeople li{
+    padding: 3px 0 3px 0;
+}
+
+#whatToRead li {
+	padding: 17px 2px;
+}
+
+#postUpdate {
+	font-weight:bold;
+}
+
+#postUpdate a {
+	text-transform: none;
+}
+
+#busy {
+	float: left;
+	padding: 16px;
+}
+
+/* section list stuff */
+
+ul {
+    clear:both;
+    font-size:0.9em;
+    padding-left:2px;
+    padding-top:5px;
+    list-style:none;
+}
+
+ul.horizontal { 
+    list-style:none outside none;
+}
+
+.narrow li {
+    width:105px;
+}
+
+li {
+    background: none repeat scroll 0 0 transparent;
+    cursor:pointer;
+    padding: 2px;
+    clear: both;
+}
+
+.horizontal li {
+    float:left;
+    clear: none;
+}
+
+li input {
+    float:left;
+}
+
+li label {
+    float:       left;
+    display:     block;
+    font-family: arial,helvetica,sans-serif;
+    line-height: 1.2em;
+    padding-left:4px;
+}
+
+button {
+    clear: both;
+    float: left;
+}
+
+#activity ul {
+    clear:right;
+    float:left;
+    padding-left:20px;
+}
+
+#activity .photo {
+    float: left;
+}
+
+/* Button */
+
+.btn {
+	margin: 0;
+	padding: 10px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	float: left;
+	clear: both;
+	background: url(../img/btn_left.png) no-repeat;
+	padding: 0 0 0 10px;
+	margin: 5px 0 0 4px;;
+}
+
+.btn a {
+	float: left;
+	height: 40px;
+	background: url(../img/btn_stretch.png) repeat-x left top;
+	line-height: 40px;
+	padding: 0 10px;
+	color: #fff;
+	font-size: 1em;
+	text-decoration: none;
+}
+
+.btn span {
+	background: url(../img/btn_right.png) no-repeat;
+	float: left;
+	width: 10px;
+	height: 40px;
+}
+
+.lockToBottom {
+	bottom: 77px;
+	position: absolute;
+}
+
+.dark { background-color:#000000; }
+
+.btn_addtocart { background-color: green; }
+.btn_checkout { background-color: red; }
+.btn_learnmore { background-color: orange; }
+.btn_try { background-color: #002c85; }
+
+.clear {
+	clear: both;
+}
+
+	

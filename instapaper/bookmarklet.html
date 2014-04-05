@@ -1,0 +1,43 @@
+<html>
+<head>
+<title>I&#9829;NYT</title>
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<script type="text/javascript" src="http://graphics8.nytimes.com/js/app/lib/prototype/1.6.0.2/prototype.js"></script>
+</head>
+<body>
+<div id="bookmarklet" class="box">
+  <h1>Instapaper &#9829; The New York Times</h1>
+  <img src="img/iheartt.png"/>
+  <p>If you have a password enter it here, otherwise click Go</p>
+  <div class="input-pwd"><input type="password" id="instPass" name="password" size="32" style="border: 0pt none;" onKeyPress="return Enter(event)"></div>
+  <div class="btn dark"><a onClick="javascript:Go();">Go</a><span></span></div>
+  <img id="busy" src="img/busy.gif" style="display: none;"/>
+  <div id="external"></div>
+</div>
+<script>
+$('instPass').focus();
+
+function Enter(e) {
+	var keycode;
+	if (window.event) keycode = window.event.keyCode;
+	else if (e) keycode = e.which;
+	else return true;
+
+	if (keycode == 13) {
+		Go();
+		return false;
+	} else {
+		return true;
+	}
+}
+
+function Go() {
+	$('busy').show();
+	var redirect = location.href;
+	redirect = redirect.replace('bookmarklet.html', 'svc/add.php');
+	redirect = redirect + "&pass=" + $('instPass').value;
+	location.href = redirect;
+}
+</script>
+</body>
+</html>
