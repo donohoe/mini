@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Cassette</title>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=700, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<link href="styles.css" media="all" rel="stylesheet">
+	</head>
+	<body>
+		<div id="container" class="container">
+			<div class="tape-wrapper">
+				<div class="tape">
+					<div class="tape-back">
+						<div class="tape-wheel tape-wheel-left"><div></div></div>
+						<div class="tape-wheel tape-wheel-right"><div></div></div>
+					</div>
+					<div class="tape-front"><div><a id="artist" href="#" target="_blank"></a></div></div>
+				</div>
+			</div>
+			<ul id="ctrls" class="controls">
+				<li id="btn-play" data-ctrl="play" class="control-play">&#9654;</li>
+				<li data-ctrl="rew"  class="control-rewind">&#10073;&#9664;&#9664;</li>
+				<li data-ctrl="fwd"  class="control-fforward">&#9654;&#9654;&#10073;</li>
+				<li id="btn-stop" data-ctrl="stop" class="control-stop">&#9608;</li>
+			</ul>
+		</div>
+		<div id="player" style="visibility:hidden; position: absolute; left: -200%;"></div>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+		<script src="app.js"></script>
+		<script>
+			$(function() {
+				Cassette.init();
+			});
+		</script>
+    </body>
+</html>
