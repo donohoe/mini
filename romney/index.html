@@ -1,0 +1,228 @@
+<html>
+	<head>
+		<title>Mitt Romney - Realtime Unlikes</title>
+		<meta name="author" content="Michael Donohoe">
+		<meta name="description" content="Watch the steady post-election trickle of Unlikes on Mitt Romney's official Facebook page.">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="shortcut icon" href="/img/favicon.png">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		<meta property="og:title" content="Mitt Romney - Realtime Unlikes" />
+		<meta property="og:type" content="website" />
+		<meta property="og:image" content="http://donohoe.io/projects/romney/preview.jpg" />
+		<meta property="og:url" content="http://donohoe.io/projects/romney/" />
+		<meta property="og:description" content="Watch the steady post-election trickle of Unlikes on Mitt Romney's official Facebook page." />
+		<meta property="og:site_name" content="donohoe.io" />
+		<meta property="og:locale" content="en_US" />
+
+		<meta name="twitter:card" content="photo">
+		<meta name="twitter:site" content="@donohoe">
+		<meta name="twitter:creator" content="@donohoe">
+		<meta name="twitter:url" content="http://donohoe.io/projects/romney/">
+		<meta name="twitter:title" content="Mitt Romney - Realtime Unlikes">
+		<meta name="twitter:description" content="Watch the steady post-election trickle of Unlikes on Mitt Romney's official Facebook page." >
+		<meta name="twitter:image" content="http://donohoe.io/projects/romney/preview.jpg">
+
+		<style>
+			body {
+				background: #E7EBF2;
+				padding: 0;
+				margin:  0;
+				overflow: hidden;
+			}
+			#bar {
+				width: 100%;
+				height: 40px;
+				background-color: #3B5998;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			#mainPhoto{
+				width:    851px;
+				position: absolute;
+				top:      40px;
+				left:     0;
+				right:    0;
+				margin:   0 auto;
+				padding:  0;
+			}	
+			#content {
+				background: white;
+			}
+			
+			#profilePhoto {
+				position: relative;
+				top: -95px;
+				left: 20px;
+			}
+			
+			#profilePhoto img {
+				border: 4px solid white;
+			}
+
+			#bkgnd {
+				position: absolute;
+				top: 465px;
+			}
+
+			#profileCounts {
+				position: relative;
+				top: -177px;
+				left: 201px;
+				right: 0;
+				width: 600px;
+				}
+			}
+
+			#fb_count_diff {
+				font-size: 10px;
+			}
+
+			#profileName {
+				color: #1C2A47;
+				direction: ltr;
+				display: inline;
+				font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
+				font-size: 20px;
+				font-weight: bold;
+				height: auto;
+				line-height: 25px;
+			}
+
+			#profileCountsText {
+				bottom: auto;
+				color: gray;
+				direction: ltr;
+				display: block;
+				font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
+				font-size: 17px;
+				font-weight: normal;
+				line-height: 35px;
+			}
+
+			#blurb {
+				left: -175px;
+				position: relative;
+				width: 800px;
+			}
+
+			#disclaimer {
+				margin-bottom: 8px;
+				font-family: Helvetica;
+				font-size: 12px;
+			}
+
+		</style>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	</head>
+	<body>
+		<div id="bar">&nbsp;</div>
+		<div id="mainPhoto" style="width: 851px;">
+			<a href="http://facebook.com/mittromney">
+				<img class="coverPhotoImg photo img" src="https://sphotos-a.xx.fbcdn.net/hphotos-ash3/544790_10151154119196121_836336136_n.jpg" style="top:0px;width:100%;" data-fbid="10151154119196121" alt="Mitt Romney Cover Photo">
+			</a>
+			<div id="content">
+				<div id="profilePhoto" >
+					<a href="http://facebook.com/mittromney"><img class="scaledImageFitWidth img" src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/276978_21392801120_1294499636_n.jpg" alt="Mitt Romney" width="160" height="160" itemprop="photo"></a>
+				</div>
+				<div id="profileCounts">
+					<h2>
+						<span id="profileName">Mitt Romney</span>
+						<div id="profileCountsText">
+							<span id="fb_count"></span> <span id="fb_count_diff"></span> Likes on Facebook <!-- - Twitter Followers <span id="twitter_count"></span> -->
+						</div>
+					</h2>
+					<div id="blurb">
+						<div id="disclaimer">
+							This is an apolitical page. I find this <i>unliking</i> phenomena fascinating. It should not be taken as a reflection of political views or affiliation.
+						</div>
+						<div id="twitter_btns">
+							<a href="https://twitter.com/donohoe" class="twitter-follow-button" data-show-count="false">Follow @donohoe</a>
+							&nbsp;
+							<a href="https://twitter.com/share" class="twitter-share-button" data-via="donohoe" data-related="donohoe">Tweet</a>
+						</div>
+					</div>
+				</div>
+				<img id="bkgnd" src="fb-bkgnd.jpg">
+			</div>
+		</div>
+		<div>
+		</div>
+		<script type="text/javascript">
+			var f_page = "mittromney";
+			var t_page = "mittromney";
+			var prev_count = false;
+
+			function add_commas(number) {
+				if (number.length > 3) {
+					var mod = number.length % 3;
+					var output = (mod > 0 ? (number.substring(0,mod)) : '');
+					for (i=0 ; i < Math.floor(number.length / 3); i++) {
+						if ((mod == 0) && (i == 0)) {
+							output += number.substring(mod+ 3 * i, mod + 3 * i + 3);
+						} else {
+							output+= ',' + number.substring(mod + 3 * i, mod + 3 * i + 3);	
+						}
+					}
+					return (output);
+				} else {
+					return number;
+				}
+			}
+
+			function grabNumbers() {
+				// grab from facebook
+				$.getJSON('https://graph.facebook.com/'+f_page+'?callback=?', function(data) {
+					var fbEl       = $('#fb_count');
+					var fbElDiff   = $('#fb_count_diff');
+					var curr_count = data['likes'];
+					var fb_count   = curr_count.toString();
+					prev_count = prev_count || data['likes'];
+
+					fb_count = add_commas(fb_count);
+					fbEl.html(fb_count);
+
+					var plusOrMinus = (prev_count > curr_count) ? "-" : "";
+					$('#fb_count_diff').html("(" + plusOrMinus + (prev_count - curr_count) + ")");
+
+					if (prev_count > curr_count) {
+						fbEl.css({ 'color': 'red' });
+					} else {
+						fbEl.css({ 'color': 'green' });
+					}
+				});
+				// grab from twitter
+				// $.getJSON('http://api.twitter.com/1/users/show.json?screen_name='+t_page+'&callback=?', function(data) {
+				// 	var twEl       = $('#twitter_count');
+				// 	var prev_count = parseInt(twEl.text().replace(/,/gi,""));
+				// 	var curr_count = data['followers_count'];
+				// 	twit_count = curr_count.toString();
+				// 	twit_count = add_commas(twit_count);
+				// 	twEl.html(twit_count);
+				// 
+				// 	if (prev_count > curr_count) {
+				// 		twEl.css({ 'color': 'red' });
+				// 	} else {
+				// 		twEl.css({ 'color': 'green' });
+				// 	}
+				// });
+			}
+
+			// when document is ready load the counts
+			$(document).ready(function(){
+				grabNumbers();
+				intervalId = setInterval(grabNumbers, 3261);
+			});
+		</script>
+		<script src="//platform.twitter.com/widgets.js"></script>
+		<script>
+			var _gaq = [['_setAccount', 'UA-3079798-12'], ['_trackPageview']];
+			(function(d, t) {
+				var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+				g.async = true;
+				g.src = ('https:' == location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				s.parentNode.insertBefore(g, s);
+			})(document, 'script');
+		</script>
+	</body>
+</html>
