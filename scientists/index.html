@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<link rel="stylesheet" type="text/css" media="all" href="css/screen.css" />
+	<link rel="stylesheet" type="text/css" media="all" href="css/style.css" />
+	<title>Scientists! Where is our hoverboard?</title>
+	<meta name="description" content="Scientists - time is running out. Where is our hoverboard?">
+	<meta name="author" content="Michael Donohoe">
+	<meta name="viewport" content="width=device-width">
+
+	<meta property="og:title" content="Scientists - time is running out" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="http://donohoe.io/projects/scientists/" />
+	<meta property="og:image" content="http://donohoe.io/projects/scientists/images/hoverboard-600.jpg" />
+	<meta property="og:site_name" content="donohoe.io" />
+	<meta property="og:description" content="Scientists - time is running out. Where is our hoverboard?" />
+
+	<meta name="twitter:card" content="photo">
+	<meta name="twitter:site" content="@donohoe">
+	<meta name="twitter:creator" content="@donohoe">
+	<meta name="twitter:url" content="http://donohoe.io/projects/scientists/">
+	<meta name="twitter:title" content="Scientists - time is running out!">
+	<meta name="twitter:description" content="A countdown to October 21st 2015. Where is our hoverboard?">
+	<meta name="twitter:image" content="http://donohoe.io/projects/scientists/images/hoverboard-600.jpg">
+
+	<link rel="shortcut icon" href="/img/favicon.png">
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+	<script src="js/libs/modernizr-2.5.2.min.js"></script>
+	<script>
+	function getTheFuture() {
+		var theFuture  = new Date(2015,9,21,0,0);	// October 21st, 2015
+		var thePresent = new Date();				// Now
+		var backToTheFuture = theFuture.getTime() - thePresent.getTime();
+		var numberOfDays   = backToTheFuture / (1000*60*60*24);
+		var numberOfYears  = numberOfDays  / 365;
+		var numberOfMonths = numberOfYears * 12;
+		var msg = "";
+		switch(true) {
+		    case (backToTheFuture < 0):
+		        msg = "You're too late";
+		        break;
+		    case (numberOfMonths  < 1):
+		        msg = "You have " + parseInt(numberOfDays, 10)   + " days";
+		        break;
+		    case (numberOfMonths  < 12):
+		        msg = "You have " + parseInt(numberOfMonths, 10) + " months";
+		        break;
+		    default:
+		        msg = "You have " + parseInt(numberOfYears, 10)  + " years";
+		        break;
+		}
+		if (msg.indexOf(" 1 ")>-1) {
+			msg = msg.substring(0, msg.length - 1);
+		}
+		return msg;
+	}
+	</script>
+</head>
+<body>
+	<div role="main">
+		<div id="central">
+			<a href="http://en.wikipedia.org/wiki/Back_to_the_Future_Part_II" title="Back to the Future Part II on Wikipedia"><img src="images/hoverboard.jpg"/ alt="Hoverboard"></a>
+		</div>
+		<div id="warning">
+			<h1>Scientists</h1>
+			<h2 id="msg"></h2>
+		</div>
+	</div>
+	<script>
+		document.getElementById("msg").innerHTML = getTheFuture();
+		var _gaq=[['_setAccount','UA-3079798-12'],['_trackPageview']];
+		(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+		g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+		s.parentNode.insertBefore(g,s)}(document,'script'));
+	</script>
+</body>
+</html>

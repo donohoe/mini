@@ -1,0 +1,30 @@
+body {
+	background-color: black;
+	color: white;
+}
+
+#central {
+	width: 100%;
+	text-align: center;
+}
+
+#central img {
+	width:     100%;
+	max-width: 1400px;
+	margin:    auto;
+}
+
+#warning {
+	padding: 20px;
+	text-align: center;
+}
+
+h1, h2 {
+	font-size: 76px;
+	text-transform: uppercase;
+	cursor: default;
+}
+
+h2 {
+	font-size: 48px;
+}
